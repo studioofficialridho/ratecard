@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate Card - Studioofficialridho</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===================================================================
+           CSS RATE CARD v7.0 - REFINED & FULLY RESPONSIVE
+           =================================================================== */
+
+        /* -------------------------------------------------------------------
+           1. PENGATURAN DASAR & VARIABEL WARNA
+           ------------------------------------------------------------------- */
+        :root {
+            --bg-dark: #12181F;
+            --bg-card: #1A222B;
+            --bg-card-popular: #212B36;
+            --accent-primary: #00A9FF;
+            --accent-secondary: #00E0C7;
+            --text-primary: #F0F4F8;
+            --text-secondary: #A0B3C4;
+            --border-color: #303A47;
+            --header-height: 80px;
+            --border-radius: 12px;
+            --padding-card: clamp(1.5rem, 5vw, 2.2rem);
+            --padding-container-y: clamp(2.5rem, 8vw, 5rem);
+            --padding-container-x: clamp(1rem, 5vw, 2rem);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: var(--text-secondary); margin: 0; font-size: 16px; line-height: 1.6; }
+        body.no-scroll { overflow: hidden; }
+
+        /* -------------------------------------------------------------------
+           2. NAVIGASI
+           ------------------------------------------------------------------- */
+        .main-nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: var(--header-height);
+            padding: 0 var(--padding-container-x);
+            background-color: rgba(18, 24, 31, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .logo { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 1.25rem; color: var(--text-primary); text-decoration: none; }
+        .logo img { height: 40px; width: 40px; border-radius: 50%; object-fit: cover; }
+        
+        .nav-links { display: none; list-style: none; margin: 0; padding: 0; gap: 2rem; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-weight: 500; transition: color 0.3s ease; }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
+        
+        .hamburger-menu { display: flex; flex-direction: column; justify-content: space-around; width: 30px; height: 24px; background: transparent; border: none; cursor: pointer; padding: 0; z-index: 1001; }
+        .hamburger-menu .line { display: block; width: 100%; height: 3px; background-color: var(--text-primary); border-radius: 3px; transition: all 0.3s ease-in-out; }
+        .hamburger-menu.is-active .line1 { transform: translateY(10.5px) rotate(45deg); }
+        .hamburger-menu.is-active .line2 { opacity: 0; }
+        .hamburger-menu.is-active .line3 { transform: translateY(-10.5px) rotate(-45deg); }
+        
+        .mobile-nav { position: fixed; top: 0; right: -100%; width: 70%; max-width: 320px; height: 100vh; background-color: var(--bg-card); z-index: 1000; transition: right 0.4s ease-in-out; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .mobile-nav.is-active { right: 0; box-shadow: -10px 0 30px rgba(0,0,0,0.2); }
+        .mobile-nav ul { list-style: none; padding: 0; margin: 0; text-align: center; }
+        .mobile-nav ul li { margin: 2rem 0; }
+        .mobile-nav ul a { color: var(--text-primary); text-decoration: none; font-size: 1.5rem; font-weight: 700; }
+        
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 999; opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease; }
+        .overlay.is-active { opacity: 1; visibility: visible; }
+        
+        @media (min-width: 768px) { 
+            .nav-links { display: flex; } 
+            .hamburger-menu { display: none; } 
+            .mobile-nav { display: none; } 
+            .overlay { display: none; } 
+        }
+
+        /* -------------------------------------------------------------------
+           3. STRUKTUR UTAMA & LAYOUT
+           ------------------------------------------------------------------- */
+        .container { max-width: 1200px; margin: 0 auto; padding: var(--padding-container-y) var(--padding-container-x); }
+        section[id] { scroll-margin-top: var(--header-height); }
+
+        #home { text-align: center; padding-top: calc(var(--header-height) + 2rem); }
+        #home h1 { font-size: clamp(2.2rem, 1rem + 5vw, 3.5rem); font-weight: 800; color: var(--text-primary); line-height: 1.2; margin: 0 0 1rem 0; letter-spacing: -0.05em; }
+        #home .hero-subtitle { font-size: clamp(1rem, 0.5rem + 1vw, 1.125rem); max-width: 650px; margin: 0 auto; line-height: 1.5; }
+        
+        .section-title { text-align: center; margin-bottom: clamp(3rem, 10vw, 4rem); font-size: clamp(2rem, 1rem + 4vw, 3rem); color: var(--text-primary); }
+
+        .rate-card-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(1.5rem, 4vw, 2.5rem); align-items: stretch; }
+        
+        .rate-card { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--border-radius); padding: var(--padding-card); display: flex; flex-direction: column; transition: all 0.3s ease; }
+        .rate-card:hover, .rate-card:focus-within { transform: translateY(-10px); box-shadow: 0 10px 45px rgba(0, 169, 255, 0.15); }
+        
+        .rate-card h3 { font-size: 1.6rem; font-weight: 700; color: var(--text-primary); margin: 0 0 0.5rem 0; }
+        .card-desc { font-size: 0.95rem; margin-bottom: 1.5rem; min-height: 50px; flex-grow: 0; }
+        .rate-card .price { font-size: clamp(2.5rem, 1rem + 7vw, 3.5rem); font-weight: 800; margin: 0.5rem 0 1.5rem 0; line-height: 1; background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-fill-color: transparent; }
+        .rate-card ul { list-style: none; padding: 0; margin: 0 0 2rem 0; text-align: left; flex-grow: 1; }
+        .rate-card ul li { display: flex; align-items: flex-start; gap: 12px; padding: 0.75rem 0; font-size: 1rem; border-bottom: 1px solid var(--border-color); }
+        .rate-card ul li:last-child { border-bottom: none; }
+        .rate-card ul li span { color: var(--text-primary); font-weight: 500; }
+        .icon-check { color: var(--accent-secondary); margin-top: 5px; flex-shrink: 0; }
+        .icon-cross { color: #5A6978; margin-top: 5px; flex-shrink: 0; }
+        
+        .rate-card.popular { border: 2px solid var(--accent-primary); background-color: var(--bg-card-popular); box-shadow: 0 0 50px rgba(0, 169, 255, 0.2); position: relative; }
+        .rate-card.popular .badge { position: absolute; top: 20px; right: 20px; background: var(--accent-primary); color: var(--bg-dark); padding: 4px 12px; font-size: 0.75rem; font-weight: 700; border-radius: 20px; text-transform: uppercase; }
+        
+        .cta-button { display: block; width: 100%; text-align: center; background: var(--accent-primary); color: var(--bg-dark); padding: 1rem; border-radius: 8px; text-decoration: none; font-weight: 700; transition: all 0.25s ease; border: 2px solid var(--accent-primary); margin-top: auto; }
+        .cta-button:hover, .cta-button:focus-visible { background: transparent; color: var(--accent-primary); transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0, 169, 255, 0.2); }
+        .cta-button:focus-visible { outline: 2px solid var(--accent-primary); outline-offset: 4px; }
+
+        @media (min-width: 992px) {
+            .rate-card.popular { transform: translateY(-15px); }
+            .rate-card.popular:hover, .rate-card.popular:focus-within { transform: translateY(-20px); box-shadow: 0 0 60px rgba(0, 169, 255, 0.35); }
+        }
+
+        /* -------------------------------------------------------------------
+           4. GAYA UNTUK KONTEN (TENTANG & KONTAK)
+           ------------------------------------------------------------------- */
+        #about, #contact { padding-top: var(--padding-container-y); }
+        .about-content { max-width: 800px; margin: 0 auto; text-align: left; }
+        .about-content h3 { color: var(--text-primary); font-size: 1.5rem; margin-top: 3rem; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color); }
+        .about-content p, .about-content ul li, .about-content blockquote { text-align: left; }
+        .about-content table { width: 100%; border-collapse: collapse; margin: 2rem 0; display: block; overflow-x: auto; }
+        .about-content th, .about-content td { padding: 12px 15px; border-bottom: 1px solid var(--border-color); text-align: left; white-space: nowrap; }
+        .about-content thead th { font-weight: 700; color: var(--text-primary); font-size: 1.1rem; }
+        .about-content td { color: var(--text-secondary); }
+        .about-content td:first-child { color: var(--text-primary); font-weight: 500; }
+        .about-content ul { list-style: none; padding-left: 0; }
+        .about-content ul li { display: flex; align-items: flex-start; gap: 15px; padding: 10px 0; font-size: 1.05rem; }
+        .about-content ul li::before { content: '🔹'; color: var(--accent-primary); margin-right: 5px; flex-shrink: 0; }
+        .about-content blockquote { border-left: 4px solid var(--accent-primary); background-color: rgba(0, 169, 255, 0.05); padding: 1rem 1.5rem; margin: 2rem 0; border-radius: 0 var(--border-radius) var(--border-radius) 0; }
+        
+        #contact { padding-bottom: var(--padding-container-y); }
+        .contact-wrapper { text-align:center; max-width: 700px; margin: 0 auto; }
+        .contact-wrapper a { color: var(--accent-primary); font-weight: 600; text-decoration: none; border-bottom: 2px solid transparent; transition: border-color 0.3s; }
+        .contact-wrapper a:hover { border-color: var(--accent-secondary); }
+
+        /* -------------------------------------------------------------------
+           5. FOOTER
+           ------------------------------------------------------------------- */
+        footer { text-align: center; margin-top: clamp(4rem, 12vw, 6rem); padding: 2rem var(--padding-container-x); border-top: 1px solid var(--border-color); }
+        footer a { color: var(--accent-primary); font-weight: 600; text-decoration: none; transition: color 0.2s ease; }
+        footer a:hover, footer a:focus-visible { color: var(--accent-secondary); text-decoration: underline; }
+        footer a:focus-visible { outline: 2px solid var(--accent-secondary); border-radius: 4px; }
+        footer .copyright { color: #5A6978; font-size: 0.875rem; margin-top: 1.5rem; }
+
+    </style>
+</head>
+<body>
+
+    <nav class="main-nav">
+        <a href="#home" class="logo">
+            <img src="gambarweb.png" alt="Logo Studioofficialridho">
+            <span>Studioofficialridho</span>
+        </a>
+        
+        <ul class="nav-links">
+            <li><a href="#home">HOME</a></li>
+            <li><a href="#services">LAYANAN</a></li>
+            <li><a href="#about">TENTANG</a></li>
+            <li><a href="#contact">KONTAK</a></li>
+        </ul>
+        <button class="hamburger-menu" aria-label="Buka menu">
+            <span class="line line1"></span><span class="line line2"></span><span class="line line3"></span>
+        </button>
+    </nav>
+    <div class="mobile-nav">
+        <ul>
+            <li><a href="#home">HOME</a></li>
+            <li><a href="#services">LAYANAN</a></li>
+            <li><a href="#about">TENTANG</a></li>
+            <li><a href="#contact">KONTAK</a></li>
+        </ul>
+    </div>
+    <div class="overlay"></div>
+    
+    <div class="container">
+        <section id="home">
+            <h1>Daftar Harga Layanan Kami</h1>
+            <p class="hero-subtitle">Solusi Profesional untuk Kebutuhan Desain Web 3D & Digital Kreatif Bisnis Anda.</p>
+        </section>
+
+        <p class="hero-subtitle"></p>
+        <main>
+            <section id="services">
+                <div class="rate-card-container">
+                    
+                    <div class="rate-card">
+                        <h3>Basic</h3>
+                        <p class="card-desc">Untuk kebutuhan esensial dengan hasil profesional dan modern.</p>
+                        <div class="price">Rp 1.5jt</div>
+                        <ul>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-circle-fill icon-check" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg><span>Web Statis Profesional</span></li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-circle-fill icon-check" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg><span>Tampilan 3D Ringan</span></li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-circle-fill icon-check" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg><span>Mobile-Friendly UI</span></li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-x-circle icon-cross" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg><span>Tanpa Branding Kit</span></li>
+                        </ul>
+                        <a href="#contact" class="cta-button">Pilih Paket</a>
+                    </div>
+
+                    <div class="rate-card">
+                        <h3>Bio Profile Basic</h3>
+                        <p class="card-desc">untuk menampilkan informasi pribadi atau profesional seseorang dalam format yang rapi dan menarik. Fungsinya mirip dengan kartu nama digital, namun lebih fleksibel, informatif, dan bisa diakses kapan saja melalui internet.</p>
+                        <div class="price">	Rp 305rb</div>
+                        <ul>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-circle-fill icon-check" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg><span>Web Statis Profesional</span></li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-circle-fill icon-check" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg><span>Sudah Termasuk Domain 1 Tahun </span></li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-circle-fill icon-check" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg><span>Tampilan 3D Ringan</span></li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-circle-fill icon-check" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg><span>Mobile-Friendly UI</span></li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-x-circle icon-cross" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg><span>Tanpa Branding Kit</span></li>
+                        </ul>
+                        <a href="#contact" class="cta-button">Pilih Paket</a>
+                    </div>
+
+                    <div class="rate-card popular">
+                        <div class="badge">Rekomendasi</div>
+                        <h3>Professional</h3>
+                        <p class="card-desc">Solusi lengkap untuk bisnis dengan branding dan fungsionalitas penuh.</p>
+                        <div class="price">Rp 3.5jt</div>
+                        <ul>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-circle-fill icon-check" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg><span>Web Dinamis & Interaktif</span></li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-circle-fill icon-check" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg><span>Termasuk Domain .COM (1 Tahun)</span></li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-circle-fill icon-check" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg><span>Animasi & Elemen 3D Kustom</span></li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-circle-fill icon-check" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg><span>Branding Visual & Logo</span></li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-circle-fill icon-check" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg><span>UI/UX Full Responsive</span></li>
+                        </ul>
+                        <a href="#contact" class="cta-button">Pilih Paket</a>
+                    </div>
+                    
+                    <div class="rate-card popular">
+                        <div class="badge">Rekomendasi</div>
+                        <h3>Bio Profile</h3>
+                        <p class="card-desc">untuk menampilkan informasi pribadi atau profesional seseorang dalam format yang rapi dan menarik. Fungsinya mirip dengan kartu nama digital, namun lebih fleksibel, informatif, dan bisa diakses kapan saja melalui internet.</p>
+                        <div class="price">Rp 150rb</div>
+                        <ul>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-circle-fill icon-check" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg><span>Domain Menggunakan github, Seumur Hidup</span></li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-circle-fill icon-check" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg><span>Web Statis Profesional</span></li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-circle-fill icon-check" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg><span>
+                            Tampilan 3D Ringan</span></li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-circle-fill icon-check" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg><span>Mobile-Friendly UI & Responsive</span></li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-x-circle icon-cross" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg><span>Tanpa Branding Kit</span></li>
+                    
+                        </ul>
+                        <a href="#contact" class="cta-button">Pilih Paket</a>
+                    </div>
+
+                    <div class="rate-card">
+                        <h3>Business Growth</h3>
+                        <p class="card-desc">Paket premium untuk performa, pertumbuhan, dan dukungan prioritas.</p>
+                        <div class="price">Rp 5jt</div>
+                        <ul>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-circle-fill icon-check" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg><span>Semua Fitur Professional</span></li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-circle-fill icon-check" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg><span>Elemen 3D Interaktif Canggih</span></li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-circle-fill icon-check" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg><span>Optimasi SEO & Kecepatan</span></li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-circle-fill icon-check" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg><span>Strategi Konversi (CTA)</span></li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-circle-fill icon-check" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg><span>Dukungan Prioritas</span></li>
+                        </ul>
+                        <a href="#contact" class="cta-button">Pilih Paket</a>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="about">
+                <h2 class="section-title">Tentang Saya</h2>
+                <div class="about-content">
+                    <p>Kami menghadirkan layanan desain web 3D interaktif dan solusi digital visual yang dirancang khusus untuk meningkatkan citra, kredibilitas, dan performa online bisnis Anda. Mulai dari tampilan estetis hingga fungsionalitas web yang optimal. semua kami kemas dalam berbagai pilihan paket fleksibel sesuai kebutuhan.</p>
+
+                    <h3>Layanan Utama Kami</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Layanan</th>
+                                <th>Deskripsi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Desain Web 3D Interaktif</td>
+                                <td>Pembuatan tampilan web dengan elemen 3D modern, efek visual, dan animasi.</td>
+                            </tr>
+                            <tr>
+                                <td>UI/UX Desain Responsif</td>
+                                <td>Desain antarmuka dan pengalaman pengguna yang optimal di semua perangkat.</td>
+                            </tr>
+                             <tr>
+                                <td>Desain Branding</td>
+                                <td>Pembuatan logo, palet warna, dan identitas visual yang kuat untuk bisnis Anda.</td>
+                            </tr>
+                            <tr>
+                                <td>Optimasi Website</td>
+                                <td>SEO, kecepatan loading, dan konversi web untuk performa maksimal.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Paket Layanan & Harga</h3>
+                    <table>
+                          <thead>
+                            <tr>
+                                <th>Paket</th>
+                                <th>Fitur Utama</th>
+                                <th>Harga Mulai</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Basic</td>
+                                <td>Web statis + tampilan 3D ringan + mobile-friendly UI</td>
+                                <td>Rp 1.500.000</td>
+                            </tr>
+                            <tr>
+                                <td>Professional</td>
+                                <td>Web dinamis + animasi 3D + branding visual + UI/UX full responsive</td>
+                                <td>Rp 3.500.000</td>
+                            </tr>
+                            <tr>
+                                <td>Business Growth</td>
+                                <td>Web premium + elemen 3D canggih + SEO + strategi konversi + desain logo</td>
+                                <td>Rp 5.000.000</td>
+                            </tr>
+                             <tr>
+                                <td>Custom Premium</td>
+                                <td>Solusi sesuai kebutuhan bisnis Anda, termasuk Website WordPress kustom (berita, blog, e-commerce, dan lainnya)</td>
+                                <td>Hubungi Kami</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <blockquote>Semua harga dapat disesuaikan berdasarkan kompleksitas proyek dan permintaan khusus klien.</blockquote>
+
+                    <h3>Mengapa Pilih Kami?</h3>
+                    <ul>
+                        <li>Desainer Berpengalaman di Bidang 3D & Web Development</li>
+                        <li>Tampilan Profesional & Berkelas untuk Bisnis</li>
+                        <li>Dukungan Revisi dan Maintenance</li>
+                        <li>Desain Unik & Original Sesuai Brand Anda</li>
+                    </ul>
+                </div>
+            </section>            
+            
+            <section id="contact">
+                <h2 class="section-title">Hubungi Kami</h2>
+                <div class="contact-wrapper">
+                    <p>
+                        Siap untuk memulai proyek? Kirimkan saya pesan melalui 
+                        <a href="mailto:emailanda@contoh.com">email</a> atau langsung hubungi via
+                        <a href="https://api.whatsapp.com/send?phone=6283136270490" target="_blank" rel="noopener noreferrer">WhatsApp</a>!
+                    </p>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p><strong>Butuh penawaran khusus?</strong> Hubungi kami via <a href="mailto:emailanda@contoh.com">email</a> atau <a href="https://api.whatsapp.com/send?phone=6283136270490" target="_blank" rel="noopener noreferrer">WhatsApp</a>.</p>
+            <p class="copyright">&copy; 2025 Studioofficialridho - Support by: lensamedan.id - Semua Hak Cipta Dilindungi.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- KODE UNTUK MENU HAMBURGER & NAVIGASI ---
+            const hamburger = document.querySelector('.hamburger-menu');
+            const mobileNav = document.querySelector('.mobile-nav');
+            const overlay = document.querySelector('.overlay');
+            const body = document.querySelector('body');
+            const allNavLinks = document.querySelectorAll('.mobile-nav a, .nav-links a');
+
+            function toggleMenu() {
+                hamburger.classList.toggle('is-active');
+                mobileNav.classList.toggle('is-active');
+                overlay.classList.toggle('is-active');
+                body.classList.toggle('no-scroll');
+            }
+
+            hamburger.addEventListener('click', toggleMenu);
+            overlay.addEventListener('click', toggleMenu);
+
+            allNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (mobileNav.classList.contains('is-active')) {
+                        toggleMenu();
+                    }
+                });
+            });
+
+            // --- KODE UNTUK TOMBOL PEMESANAN WHATSAPP ---
+            const ctaButtons = document.querySelectorAll('.cta-button');
+            const waPhoneNumber = '6283136270490'; // GANTI DENGAN NOMOR WA ANDA
+
+            ctaButtons.forEach(button => {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+
+                    const isReadyToOrder = this.classList.contains('ready-to-order');
+
+                    if (isReadyToOrder) {
+                        // AKSI KEDUA: Arahkan ke WhatsApp dengan detail lengkap
+                        const card = this.closest('.rate-card');
+                        const packageName = card.querySelector('h3').textContent.trim();
+                        const packagePrice = card.querySelector('.price').textContent.trim();
+                        
+                        const featureItems = card.querySelectorAll('ul li');
+                        let featuresListString = '';
+                        featureItems.forEach(item => {
+                            const featureText = item.querySelector('span').textContent.trim();
+                            const icon = item.querySelector('svg');
+                            
+                            if (icon && icon.classList.contains('icon-check')) {
+                                featuresListString += `✅ ${featureText}\n`;
+                            }
+                        });
+
+                        const message = `Halo Studioofficialridho,\n\nSaya ingin memesan layanan dengan detail sebagai berikut:\n\n--- *DETAIL PESANAN* ---\nPaket : *${packageName}*\nHarga : *${packagePrice}*\n\n--- *FITUR YANG DIDAPAT* ---\n${featuresListString.trim()}\n---------------------------\n\nMohon informasinya lebih lanjut. Terima kasih.`;
+
+                        const whatsappUrl = `https://api.whatsapp.com/send?phone=${waPhoneNumber}&text=${encodeURIComponent(message)}`;
+                        window.open(whatsappUrl, '_blank');
+
+                    } else {
+                        // AKSI PERTAMA: Ubah tombol menjadi "Pesan Sekarang" dan reset yang lain
+                        ctaButtons.forEach(btn => {
+                            btn.textContent = 'Pilih Paket';
+                            btn.classList.remove('ready-to-order');
+                            btn.style.backgroundColor = '';
+                            btn.style.color = '';
+                            btn.style.borderColor = '';
+                        });
+
+                        this.textContent = 'Pesan Sekarang';
+                        this.classList.add('ready-to-order');
+                        this.style.backgroundColor = 'var(--accent-secondary)';
+                        this.style.borderColor = 'var(--accent-secondary)';
+                        this.style.color = 'var(--bg-dark)';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
