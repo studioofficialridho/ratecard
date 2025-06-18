@@ -142,12 +142,11 @@
             .overlay { display: none; } 
         }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: var(--padding-container-y) var(--padding-container-x); }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 var(--padding-container-x); } /* Padding Y dihapus agar section bisa kontrol sendiri */
         section[id] { scroll-margin-top: var(--header-height); }
-        #home { text-align: center; padding-top: calc(var(--header-height) + 2rem); }
-        #home h1 { font-size: clamp(2.2rem, 1rem + 5vw, 3.5rem); font-weight: 800; color: var(--text-primary); line-height: 1.2; margin: 0 0 1rem 0; letter-spacing: -0.05em; }
-        #home .hero-subtitle { font-size: clamp(1rem, 0.5rem + 1vw, 1.125rem); max-width: 650px; margin: 0 auto; line-height: 1.5; }
+        
         .section-title { text-align: center; margin-bottom: clamp(3rem, 10vw, 4rem); font-size: clamp(2rem, 1rem + 4vw, 3rem); color: var(--text-primary); }
+        
         .rate-card-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(1.5rem, 4vw, 2.5rem); align-items: stretch; }
         .rate-card { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--border-radius); padding: var(--padding-card); display: flex; flex-direction: column; transition: all 0.3s ease; }
         .rate-card:hover, .rate-card:focus-within { transform: translateY(-10px); box-shadow: 0 10px 45px rgba(0, 169, 255, 0.15); }
@@ -162,15 +161,25 @@
         .icon-cross { color: #5A6978; margin-top: 5px; flex-shrink: 0; }
         .rate-card.popular { border: 2px solid var(--accent-primary); background-color: var(--bg-card-popular); box-shadow: 0 0 50px rgba(0, 169, 255, 0.2); position: relative; }
         .rate-card.popular .badge { position: absolute; top: 20px; right: 20px; background: var(--accent-primary); color: var(--bg-dark); padding: 4px 12px; font-size: 0.75rem; font-weight: 700; border-radius: 20px; text-transform: uppercase; }
-        .cta-button { display: block; width: 100%; text-align: center; background: var(--accent-primary); color: var(--bg-dark); padding: 1rem; border-radius: 8px; text-decoration: none; font-weight: 700; transition: all 0.25s ease; border: 2px solid var(--accent-primary); margin-top: auto; }
+        .cta-button { display: inline-block; width: auto; text-align: center; background: var(--accent-primary); color: var(--bg-dark); padding: 1rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 700; transition: all 0.25s ease; border: 2px solid var(--accent-primary); margin-top: auto; }
         .cta-button:hover, .cta-button:focus-visible { background: transparent; color: var(--accent-primary); transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0, 169, 255, 0.2); }
         .cta-button:focus-visible { outline: 2px solid var(--accent-primary); outline-offset: 4px; }
+        
+        #services, #about, #contact { 
+            padding-top: var(--padding-container-y); 
+            padding-bottom: var(--padding-container-y);
+        }
+        
         @media (min-width: 992px) {
             .rate-card.popular { transform: translateY(-15px); }
             .rate-card.popular:hover, .rate-card.popular:focus-within { transform: translateY(-20px); box-shadow: 0 0 60px rgba(0, 169, 255, 0.35); }
         }
-        #about, #contact { padding-top: var(--padding-container-y); }
-        .about-content { max-width: 800px; margin: 0 auto; text-align: left; }
+        
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+        }
         .about-content h3 { color: var(--text-primary); font-size: 1.5rem; margin-top: 3rem; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color); }
         .about-content p, .about-content ul li { text-align: left; }
         .about-content table { width: 100%; border-collapse: collapse; margin: 2rem 0; display: block; overflow-x: auto; }
@@ -182,28 +191,153 @@
         .about-content ul li { display: flex; align-items: flex-start; gap: 15px; padding: 10px 0; font-size: 1.05rem; }
         .about-content ul li::before { content: '🔹'; color: var(--accent-primary); margin-right: 5px; flex-shrink: 0; }
         
-        /* ATURAN CSS YANG DIMODIFIKASI */
         .about-content blockquote {
             border-left: 4px solid var(--accent-primary);
             background-color: rgba(0, 169, 255, 0.05);
             padding: 1rem 1.5rem;
             margin: 2rem 0;
             border-radius: 0 var(--border-radius) var(--border-radius) 0;
-            transition: opacity 0.5s ease-in-out; /* Efek fade */
+            transition: opacity 0.5s ease-in-out;
         }
         .about-content blockquote.fade-out {
-            opacity: 0; /* Kelas untuk memulai fade-out */
+            opacity: 0;
         }
 
-        #contact { padding-bottom: var(--padding-container-y); }
         .contact-wrapper { text-align:center; max-width: 700px; margin: 0 auto; }
         .contact-wrapper a { color: var(--accent-primary); font-weight: 600; text-decoration: none; border-bottom: 2px solid transparent; transition: border-color 0.3s; }
         .contact-wrapper a:hover { border-color: var(--accent-secondary); }
+        
         footer { text-align: center; margin-top: clamp(4rem, 12vw, 6rem); padding: 2rem var(--padding-container-x); border-top: 1px solid var(--border-color); }
         footer a { color: var(--accent-primary); font-weight: 600; text-decoration: none; transition: color 0.2s ease; }
         footer a:hover, footer a:focus-visible { color: var(--accent-secondary); text-decoration: underline; }
         footer a:focus-visible { outline: 2px solid var(--accent-secondary); border-radius: 4px; }
         footer .copyright { color: #5A6978; font-size: 0.875rem; margin-top: 1.5rem; }
+
+        /* ===================================================================
+            CSS BARU UNTUK HOME SECTION YANG LEBIH CANTIK
+            =================================================================== */
+        #home {
+            padding-top: calc(var(--header-height) + var(--padding-container-y)); /* Memberi jarak dari header */
+            padding-bottom: 0; /* Jarak bawah diatur oleh elemen di dalamnya */
+            text-align: center;
+        }
+
+        .hero-section {
+            padding-bottom: var(--padding-container-y);
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-pre-header {
+            display: inline-block;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--accent-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            background-color: rgba(0, 224, 199, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+
+        .hero-section h1 {
+            font-size: clamp(2.5rem, 1rem + 6vw, 4rem); /* Dibuat lebih besar */
+            color: var(--text-primary);
+            line-height: 1.15;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.05em;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 0.5rem + 1.2vw, 1.2rem);
+            max-width: 650px;
+            margin: 0 auto 2.5rem auto;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap; /* Agar rapi di layar kecil */
+        }
+
+        .hero-buttons .cta-button {
+            min-width: 200px;
+        }
+        
+        .rate-card .cta-button {
+            width: 100%; /* Memastikan tombol di rate card tetap full-width */
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-primary);
+            border: 2px solid var(--border-color);
+        }
+        
+        .btn-secondary:hover, .btn-secondary:focus-visible {
+            background: var(--accent-primary);
+            color: var(--bg-dark);
+            border-color: var(--accent-primary);
+        }
+        
+        .feature-highlights-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: clamp(3rem, 10vw, 5rem) 0; /* Jarak dari hero section */
+            border-top: 1px solid var(--border-color);
+            margin-top: clamp(2rem, 8vw, 4rem);
+        }
+
+        .feature-highlight {
+            text-align: center;
+            background-color: var(--bg-card);
+            padding: 2rem 1.5rem;
+            border-radius: var(--border-radius);
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-highlight:hover {
+            transform: translateY(-8px);
+            border-color: var(--border-color);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+
+        .feature-icon {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: var(--bg-dark);
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0 20px rgba(0, 169, 255, 0.3);
+        }
+        
+        .feature-highlight h3 {
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-highlight p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
@@ -236,13 +370,47 @@
     
     <div class="container">
        <section id="home">
-            <h1>Daftar Harga Layanan Kami</h1>
-            <p class="hero-subtitle">Solusi Profesional untuk Kebutuhan Desain Web 3D & Digital Kreatif Bisnis Anda.</p>
-        </section>
+            <div class="hero-section">
+                <div class="hero-content">
+                    <span class="hero-pre-header">SOLUSI DIGITAL KREATIF & INTERAKTIF</span>
+                    <h1>Wujudkan Visi Digital Anda Menjadi Kenyataan</h1>
+                    <p class="hero-subtitle">
+                        Dari desain web 3D yang memukau hingga branding visual yang kuat, kami membantu bisnis dan institusi pendidikan tampil profesional dan menonjol di dunia digital.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#services" class="cta-button">Lihat Paket Layanan</a>
+                        <a href="#contact" class="cta-button btn-secondary">Diskusi Proyek</a>
+                    </div>
+                </div>
+            </div>
+            <div class="feature-highlights-container">
+                <div class="feature-highlight">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-box" viewBox="0 0 16 16"><path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5 8 5.961 14.154 3.5 8.186 1.113zM15 4.239l-6.5 2.6v7.922l6.5-3.25V4.24zM1 4.239v7.428l6.5 3.25V6.839L1 4.239zm0 8.013l6.5 2.6v-2.6L1 9.252v3.001z"/></svg>
+                    </div>
+                    <h3>Desain Web 3D Interaktif</h3>
+                    <p>Ciptakan pengalaman unik bagi pengunjung dengan elemen 3D modern, efek visual, dan animasi yang halus.</p>
+                </div>
+                <div class="feature-highlight">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-palette-fill" viewBox="0 0 16 16"><path d="M12.433 10.07C14.133 10.585 16 11.15 16 8a8 8 0 1 0-11.566 6.66L3.433 15.07A8 8 0 0 0 12.433 10.07zM4 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm2.5 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm2.5 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm2.5 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                    </div>
+                    <h3>Branding Visual & Logo</h3>
+                    <p>Bangun identitas yang kuat dan mudah dikenali melalui desain logo, palet warna, dan aset visual yang konsisten.</p>
+                </div>
+                <div class="feature-highlight">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-building" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-15a.5.5 0 0 1 .237-.425l4.5-3a.5.5 0 0 1 .526 0l4.5 3 .474.316zM.5 15V1h8v14H.5zM15 15V1.236L12.5 3V15h2.5zM12 14V4h2v10h-2zM5 13H3v-2h2v2zm0-4H3V7h2v2zm0-4H3V3h2v2zm4 8H7v-2h2v2zm0-4H7V7h2v2zm0-4H7V3h2v2z"/></svg>
+                    </div>
+                    <h3>Website Institusi</h3>
+                    <p>Solusi website profesional untuk sekolah, universitas, atau lembaga, yang informatif, modern, dan terpercaya.</p>
+                </div>
+            </div>
+       </section>
 
-        <p class="hero-subtitle"></p>
         <main>
             <section id="services">
+                <h2 class="section-title">Layanan & Harga</h2>
                 <div class="rate-card-container">
                     
                     <div class="rate-card">
@@ -312,8 +480,8 @@
                             <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-circle-fill icon-check" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg><span>Semua Fitur Professional</span></li>
                             <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-circle-fill icon-check" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg><span>Elemen 3D Interaktif Canggih</span></li>
                             <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-circle-fill icon-check" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg><span>Optimasi SEO & Kecepatan</span></li>
-                            <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-circle-fill icon-check" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg><span>Strategi Konversi (CTA)</span></li>
-                            <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-circle-fill icon-check" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg><span>Dukungan Prioritas</span></li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-circle-fill icon-check" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg><span>Strategi Konversi (CTA)</span></li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-circle-fill icon-check" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg><span>Dukungan Prioritas</span></li>
                         </ul>
                         <a href="#contact" class="cta-button">Pilih Paket</a>
                     </div>
@@ -443,14 +611,18 @@
                 });
             });
 
-            // --- KODE UNTUK TOMBOL PEMESANAN WHATSAPP ---
-            const ctaButtons = document.querySelectorAll('.cta-button');
+            // --- KODE UNTUK TOMBOL PEMESANAN WHATSAPP DI RATE CARD ---
+            const ctaButtons = document.querySelectorAll('.rate-card .cta-button');
             const waPhoneNumber = '6283136270490';
 
             ctaButtons.forEach(button => {
                 button.addEventListener('click', function(event) {
-                    event.preventDefault();
+                    // Mencegah navigasi ke #contact jika ini adalah klik pertama
+                    event.preventDefault(); 
+
+                    // Cek apakah tombol ini sudah siap untuk order (klik kedua)
                     const isReadyToOrder = this.classList.contains('ready-to-order');
+                    
                     if (isReadyToOrder) {
                         const card = this.closest('.rate-card');
                         const packageName = card.querySelector('h3').textContent.trim();
@@ -468,13 +640,16 @@
                         const whatsappUrl = `https://api.whatsapp.com/send?phone=${waPhoneNumber}&text=${encodeURIComponent(message)}`;
                         window.open(whatsappUrl, '_blank');
                     } else {
-                        ctaButtons.forEach(btn => {
+                        // Reset semua tombol lain
+                        document.querySelectorAll('.rate-card .cta-button').forEach(btn => {
                             btn.textContent = 'Pilih Paket';
                             btn.classList.remove('ready-to-order');
                             btn.style.backgroundColor = '';
                             btn.style.color = '';
                             btn.style.borderColor = '';
                         });
+                        
+                        // Aktifkan tombol yang ini
                         this.textContent = 'Pesan Sekarang';
                         this.classList.add('ready-to-order');
                         this.style.backgroundColor = 'var(--accent-secondary)';
@@ -534,7 +709,7 @@
                 }
             }
 
-            // BARU: Kode untuk mengubah kalimat di blockquote secara acak dan otomatis
+            // KODE untuk mengubah kalimat di blockquote secara acak
             const quoteElement = document.querySelector('.about-content blockquote');
             if (quoteElement) {
                 const aforismeHarga = [
@@ -545,34 +720,23 @@
                     "Harga bersifat fleksibel, tergantung pada detail, fitur, dan kerumitan proyek Anda."
                 ];
 
-                let currentIndex = -1; // Untuk melacak kutipan saat ini agar tidak berulang
+                let currentIndex = -1; 
 
                 const changeQuote = () => {
-                    // 1. Tambahkan kelas 'fade-out' untuk memulai transisi menghilang
                     quoteElement.classList.add('fade-out');
-
-                    // 2. Tunggu transisi selesai (500ms), baru ganti teksnya
                     setTimeout(() => {
                         let newIndex;
-                        // Pilih indeks baru yang tidak sama dengan yang sekarang
                         do {
                             newIndex = Math.floor(Math.random() * aforismeHarga.length);
                         } while (newIndex === currentIndex);
                         
-                        currentIndex = newIndex; // Perbarui indeks saat ini
-                        
-                        // Ganti teks saat elemen tidak terlihat
+                        currentIndex = newIndex;
                         quoteElement.textContent = aforismeHarga[currentIndex];
-
-                        // 3. Hapus kelas 'fade-out' agar elemen muncul kembali (fade-in)
                         quoteElement.classList.remove('fade-out');
-                    }, 500); // Durasi ini harus sama dengan durasi transisi di CSS
+                    }, 500);
                 };
 
-                // Panggil fungsi sekali saat halaman dimuat
                 changeQuote();
-
-                // Atur interval untuk memanggil fungsi changeQuote setiap 5 detik (5000 milidetik)
                 setInterval(changeQuote, 5000); 
             }
         });
