@@ -6,7 +6,7 @@
     <title>Rate Card - Studioofficialridho</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
 
     <style>
@@ -68,11 +68,73 @@
         .hamburger-menu.is-active .line2 { opacity: 0; }
         .hamburger-menu.is-active .line3 { transform: translateY(-10.5px) rotate(-45deg); }
         
-        .mobile-nav { position: fixed; top: 0; right: -100%; width: 70%; max-width: 320px; height: 100vh; background-color: var(--bg-card); z-index: 1000; transition: right 0.4s ease-in-out; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        /* PERUBAHAN: Layout utama menu mobile dibuat lebih rapi */
+        .mobile-nav { 
+            position: fixed; 
+            top: 0; right: -100%; 
+            width: 80%; /* Sedikit lebih lebar */
+            max-width: 340px; 
+            height: 100vh; 
+            background-color: var(--bg-card); 
+            z-index: 1000; 
+            transition: right 0.4s ease-in-out; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: flex-start; /* Konten dimulai dari atas */
+            align-items: stretch; /* Konten meregang selebar menu */
+            padding: calc(var(--header-height) + 2rem) 1.5rem 2rem; /* Padding atas, samping, bawah */
+        }
         .mobile-nav.is-active { right: 0; box-shadow: -10px 0 30px rgba(0,0,0,0.2); }
-        .mobile-nav ul { list-style: none; padding: 0; margin: 0; text-align: center; }
-        .mobile-nav ul li { margin: 2rem 0; }
-        .mobile-nav ul a { color: var(--text-primary); text-decoration: none; font-size: 1.5rem; font-weight: 700; }
+
+        /* PERUBAHAN: Tampilan tanggal dipercantik dengan ikon */
+        .mobile-nav .date-display {
+            display: flex;
+            align-items: center;
+            gap: 12px; /* Jarak antara ikon dan teks */
+            text-align: left;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .mobile-nav .date-display svg {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            color: var(--accent-secondary);
+        }
+
+        /* PERUBAHAN: Daftar menu dipercantik */
+        .mobile-nav ul { list-style: none; padding: 0; margin: 0; }
+        .mobile-nav ul li { margin: 0.5rem 0; } /* Jarak antar menu diperkecil */
+
+        /* PERUBAHAN: Tampilan link menu dengan ikon dan efek hover */
+        .mobile-nav ul a {
+            color: var(--text-secondary); /* Warna default diredam */
+            text-decoration: none;
+            font-size: 1.1rem; /* Ukuran font disesuaikan */
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 16px; /* Jarak ikon dan teks */
+            padding: 1rem 1.2rem;
+            border-radius: var(--border-radius);
+            transition: all 0.25s ease;
+        }
+        .mobile-nav ul a:hover,
+        .mobile-nav ul a:focus {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            transform: translateX(10px); /* Efek geser saat hover */
+        }
+        .mobile-nav ul a svg {
+            width: 22px;
+            height: 22px;
+            color: var(--accent-primary);
+            transition: color 0.25s ease;
+        }
         
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 999; opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease; }
         .overlay.is-active { opacity: 1; visibility: visible; }
@@ -84,23 +146,16 @@
             .overlay { display: none; } 
         }
 
-        /* -------------------------------------------------------------------
-           3. STRUKTUR UTAMA & LAYOUT
-           ------------------------------------------------------------------- */
+        /* ... Sisa CSS Anda tidak berubah ... */
         .container { max-width: 1200px; margin: 0 auto; padding: var(--padding-container-y) var(--padding-container-x); }
         section[id] { scroll-margin-top: var(--header-height); }
-
         #home { text-align: center; padding-top: calc(var(--header-height) + 2rem); }
         #home h1 { font-size: clamp(2.2rem, 1rem + 5vw, 3.5rem); font-weight: 800; color: var(--text-primary); line-height: 1.2; margin: 0 0 1rem 0; letter-spacing: -0.05em; }
         #home .hero-subtitle { font-size: clamp(1rem, 0.5rem + 1vw, 1.125rem); max-width: 650px; margin: 0 auto; line-height: 1.5; }
-        
         .section-title { text-align: center; margin-bottom: clamp(3rem, 10vw, 4rem); font-size: clamp(2rem, 1rem + 4vw, 3rem); color: var(--text-primary); }
-
         .rate-card-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(1.5rem, 4vw, 2.5rem); align-items: stretch; }
-        
         .rate-card { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--border-radius); padding: var(--padding-card); display: flex; flex-direction: column; transition: all 0.3s ease; }
         .rate-card:hover, .rate-card:focus-within { transform: translateY(-10px); box-shadow: 0 10px 45px rgba(0, 169, 255, 0.15); }
-        
         .rate-card h3 { font-size: 1.6rem; font-weight: 700; color: var(--text-primary); margin: 0 0 0.5rem 0; }
         .card-desc { font-size: 0.95rem; margin-bottom: 1.5rem; min-height: 50px; flex-grow: 0; }
         .rate-card .price { font-size: clamp(2.5rem, 1rem + 7vw, 3.5rem); font-weight: 800; margin: 0.5rem 0 1.5rem 0; line-height: 1; background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-fill-color: transparent; }
@@ -110,22 +165,15 @@
         .rate-card ul li span { color: var(--text-primary); font-weight: 500; }
         .icon-check { color: var(--accent-secondary); margin-top: 5px; flex-shrink: 0; }
         .icon-cross { color: #5A6978; margin-top: 5px; flex-shrink: 0; }
-        
         .rate-card.popular { border: 2px solid var(--accent-primary); background-color: var(--bg-card-popular); box-shadow: 0 0 50px rgba(0, 169, 255, 0.2); position: relative; }
         .rate-card.popular .badge { position: absolute; top: 20px; right: 20px; background: var(--accent-primary); color: var(--bg-dark); padding: 4px 12px; font-size: 0.75rem; font-weight: 700; border-radius: 20px; text-transform: uppercase; }
-        
         .cta-button { display: block; width: 100%; text-align: center; background: var(--accent-primary); color: var(--bg-dark); padding: 1rem; border-radius: 8px; text-decoration: none; font-weight: 700; transition: all 0.25s ease; border: 2px solid var(--accent-primary); margin-top: auto; }
         .cta-button:hover, .cta-button:focus-visible { background: transparent; color: var(--accent-primary); transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0, 169, 255, 0.2); }
         .cta-button:focus-visible { outline: 2px solid var(--accent-primary); outline-offset: 4px; }
-
         @media (min-width: 992px) {
             .rate-card.popular { transform: translateY(-15px); }
             .rate-card.popular:hover, .rate-card.popular:focus-within { transform: translateY(-20px); box-shadow: 0 0 60px rgba(0, 169, 255, 0.35); }
         }
-
-        /* -------------------------------------------------------------------
-           4. GAYA UNTUK KONTEN (TENTANG & KONTAK)
-           ------------------------------------------------------------------- */
         #about, #contact { padding-top: var(--padding-container-y); }
         .about-content { max-width: 800px; margin: 0 auto; text-align: left; }
         .about-content h3 { color: var(--text-primary); font-size: 1.5rem; margin-top: 3rem; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color); }
@@ -139,21 +187,15 @@
         .about-content ul li { display: flex; align-items: flex-start; gap: 15px; padding: 10px 0; font-size: 1.05rem; }
         .about-content ul li::before { content: '🔹'; color: var(--accent-primary); margin-right: 5px; flex-shrink: 0; }
         .about-content blockquote { border-left: 4px solid var(--accent-primary); background-color: rgba(0, 169, 255, 0.05); padding: 1rem 1.5rem; margin: 2rem 0; border-radius: 0 var(--border-radius) var(--border-radius) 0; }
-        
         #contact { padding-bottom: var(--padding-container-y); }
         .contact-wrapper { text-align:center; max-width: 700px; margin: 0 auto; }
         .contact-wrapper a { color: var(--accent-primary); font-weight: 600; text-decoration: none; border-bottom: 2px solid transparent; transition: border-color 0.3s; }
         .contact-wrapper a:hover { border-color: var(--accent-secondary); }
-
-        /* -------------------------------------------------------------------
-           5. FOOTER
-           ------------------------------------------------------------------- */
         footer { text-align: center; margin-top: clamp(4rem, 12vw, 6rem); padding: 2rem var(--padding-container-x); border-top: 1px solid var(--border-color); }
         footer a { color: var(--accent-primary); font-weight: 600; text-decoration: none; transition: color 0.2s ease; }
         footer a:hover, footer a:focus-visible { color: var(--accent-secondary); text-decoration: underline; }
         footer a:focus-visible { outline: 2px solid var(--accent-secondary); border-radius: 4px; }
         footer .copyright { color: #5A6978; font-size: 0.875rem; margin-top: 1.5rem; }
-
     </style>
 </head>
 <body>
@@ -185,7 +227,7 @@
     <div class="overlay"></div>
     
     <div class="container">
-        <section id="home">
+       <section id="home">
             <h1>Daftar Harga Layanan Kami</h1>
             <p class="hero-subtitle">Solusi Profesional untuk Kebutuhan Desain Web 3D & Digital Kreatif Bisnis Anda.</p>
         </section>
@@ -372,7 +414,9 @@
             const mobileNav = document.querySelector('.mobile-nav');
             const overlay = document.querySelector('.overlay');
             const body = document.querySelector('body');
-            const allNavLinks = document.querySelectorAll('.mobile-nav a, .nav-links a');
+            
+            // PERUBAHAN: Selector link diubah untuk menargetkan link di dalam menu mobile saja
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav ul a');
 
             function toggleMenu() {
                 hamburger.classList.toggle('is-active');
@@ -384,7 +428,8 @@
             hamburger.addEventListener('click', toggleMenu);
             overlay.addEventListener('click', toggleMenu);
 
-            allNavLinks.forEach(link => {
+            // PERUBAHAN: Event listener untuk menutup menu setelah link diklik
+            mobileNavLinks.forEach(link => {
                 link.addEventListener('click', () => {
                     if (mobileNav.classList.contains('is-active')) {
                         toggleMenu();
@@ -392,40 +437,31 @@
                 });
             });
 
-            // --- KODE UNTUK TOMBOL PEMESANAN WHATSAPP ---
+            // --- KODE UNTUK TOMBOL PEMESANAN WHATSAPP (Tidak ada perubahan) ---
             const ctaButtons = document.querySelectorAll('.cta-button');
-            const waPhoneNumber = '6283136270490'; // GANTI DENGAN NOMOR WA ANDA
+            const waPhoneNumber = '6283136270490';
 
             ctaButtons.forEach(button => {
                 button.addEventListener('click', function(event) {
                     event.preventDefault();
-
                     const isReadyToOrder = this.classList.contains('ready-to-order');
-
                     if (isReadyToOrder) {
-                        // AKSI KEDUA: Arahkan ke WhatsApp dengan detail lengkap
                         const card = this.closest('.rate-card');
                         const packageName = card.querySelector('h3').textContent.trim();
                         const packagePrice = card.querySelector('.price').textContent.trim();
-                        
                         const featureItems = card.querySelectorAll('ul li');
                         let featuresListString = '';
                         featureItems.forEach(item => {
                             const featureText = item.querySelector('span').textContent.trim();
                             const icon = item.querySelector('svg');
-                            
                             if (icon && icon.classList.contains('icon-check')) {
                                 featuresListString += `✅ ${featureText}\n`;
                             }
                         });
-
                         const message = `Halo Studioofficialridho,\n\nSaya ingin memesan layanan dengan detail sebagai berikut:\n\n--- *DETAIL PESANAN* ---\nPaket : *${packageName}*\nHarga : *${packagePrice}*\n\n--- *FITUR YANG DIDAPAT* ---\n${featuresListString.trim()}\n---------------------------\n\nMohon informasinya lebih lanjut. Terima kasih.`;
-
                         const whatsappUrl = `https://api.whatsapp.com/send?phone=${waPhoneNumber}&text=${encodeURIComponent(message)}`;
                         window.open(whatsappUrl, '_blank');
-
                     } else {
-                        // AKSI PERTAMA: Ubah tombol menjadi "Pesan Sekarang" dan reset yang lain
                         ctaButtons.forEach(btn => {
                             btn.textContent = 'Pilih Paket';
                             btn.classList.remove('ready-to-order');
@@ -433,7 +469,6 @@
                             btn.style.color = '';
                             btn.style.borderColor = '';
                         });
-
                         this.textContent = 'Pesan Sekarang';
                         this.classList.add('ready-to-order');
                         this.style.backgroundColor = 'var(--accent-secondary)';
@@ -442,6 +477,62 @@
                     }
                 });
             });
+
+            // PERUBAHAN: Fungsi untuk membuat ikon SVG
+            const createIcon = (path) => {
+                const svgNS = "http://www.w3.org/2000/svg";
+                const svg = document.createElementNS(svgNS, 'svg');
+                svg.setAttribute('width', '16');
+                svg.setAttribute('height', '16');
+                svg.setAttribute('fill', 'currentColor');
+                svg.setAttribute('viewBox', '0 0 16 16');
+                const svgPath = document.createElementNS(svgNS, 'path');
+                svgPath.setAttribute('d', path);
+                svg.appendChild(svgPath);
+                return svg;
+            };
+            
+            // PERUBAHAN: Peta untuk ikon menu
+            const iconMap = {
+                '#home': 'M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z',
+                '#services': 'M1 2.5A1.5 1.5 0 0 1 2.5 1h11A1.5 1.5 0 0 1 15 2.5v11a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 13.5v-11zM2.5 2a.5.5 0 0 0-.5.5v11a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 .5-.5v-11a.5.5 0 0 0-.5-.5h-11z M8.5 8.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-1 0V9h-4.5a.5.5 0 0 1-.5-.5zm-6-6a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-1 0V3H3a.5.5 0 0 1-.5-.5z',
+                '#about': 'M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z',
+                '#contact': 'M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z'
+            };
+            
+            // PERUBAHAN: Menambahkan ikon ke setiap link menu mobile
+            mobileNavLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (iconMap[href]) {
+                    const icon = createIcon(iconMap[href]);
+                    link.prepend(icon);
+                }
+            });
+
+            // PERUBAHAN: Kode untuk menambahkan tanggal dengan ikon
+            const mobileNavContainer = document.querySelector('.mobile-nav');
+            if (mobileNavContainer) {
+                const navList = mobileNavContainer.querySelector('ul');
+                const dateDisplay = document.createElement('div');
+                dateDisplay.className = 'date-display';
+
+                // Buat ikon kalender
+                const calendarIconPath = 'M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z';
+                const calendarIcon = createIcon(calendarIconPath);
+                
+                // Buat elemen untuk teks tanggal
+                const dateText = document.createElement('span');
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                dateText.textContent = new Date().toLocaleDateString('id-ID', options);
+
+                // Gabungkan ikon dan teks
+                dateDisplay.appendChild(calendarIcon);
+                dateDisplay.appendChild(dateText);
+
+                if (navList) {
+                    mobileNavContainer.insertBefore(dateDisplay, navList);
+                }
+            }
         });
     </script>
 </body>
